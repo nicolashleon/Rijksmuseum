@@ -13,7 +13,7 @@ jobs:
     # documented at https://circleci.com/docs/2.0/circleci-images/
 
     # specify the version you desire here
-    - image: circleci/android:api-28-alpha
+    - image: circleci/android:api-28
 
     working_directory: ~/repo
 
