@@ -29,9 +29,6 @@ jobs:
 
     - run:
         name: Download Dependencies
-        command: ./android update sdk --no-ui --all --filter build-tools-25.0.1,android-25,extra-android-m2repository
-    - run:
-        name: Download Dependencies
         command: ./gradlew androidDependencies
 
     - save_cache:
