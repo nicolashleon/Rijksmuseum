@@ -1,6 +1,6 @@
 package com.rijksmuseum.sample.models
 
-data class EventResult(
+data class EventResponse(
     val elapsedMilliseconds: Int,
     val options: List<Options>
 )
