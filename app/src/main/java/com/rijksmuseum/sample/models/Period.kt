@@ -7,6 +7,6 @@ data class Period(
     val current: Int,
     val maximum: Int,
     val remaining: Int,
-    val code: String,
+    val code: String?,
     val text: String
 )

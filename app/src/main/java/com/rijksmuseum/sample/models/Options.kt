@@ -1,5 +1,8 @@
 package com.rijksmuseum.sample.models
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class Options(
     val links: Links,
     val id: String,
