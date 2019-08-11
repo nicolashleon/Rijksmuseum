@@ -1,107 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="event"
+            type="com.rijksmuseum.sample.ui.models.Event" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_view_name"
-            style="@style/TextAppearance.AppCompat.Large.Inverse"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:maxLines="2"
-            android:padding="@dimen/margin"
-            tools:text="Familierondleiding Met sprongen vooruit (instap)" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_view_price"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_euro"
-                android:drawablePadding="@dimen/half_margin"
-                app:layout_constraintBottom_toBottomOf="@id/lower_guide"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="5.50" />
-
-            <TextView
-                android:id="@+id/text_view_seats"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_seats"
-                android:drawablePadding="@dimen/half_margin"
-                app:layout_constraintBottom_toBottomOf="@id/lower_guide"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintStart_toEndOf="@id/text_view_price"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="10" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/lower_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.2" />
-
-            <TextView
-                android:id="@+id/text_view_group_type"
-                style="@style/TextAppearance.AppCompat.Medium"
+                android:id="@+id/text_view_name"
+                style="@style/TextAppearance.AppCompat.Large.Inverse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:drawableStart="@drawable/ic_group"
-                android:drawablePadding="@dimen/half_margin"
-                app:layout_constraintBottom_toTopOf="@id/text_view_dates"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/lower_guide"
-                tools:text="Families en Kinderen" />
+                android:background="@color/colorPrimaryDark"
+                android:maxLines="2"
+                android:padding="@dimen/margin"
+                android:text="@{event.name}"
+                tools:text="Familierondleiding Met sprongen vooruit (instap)" />
 
-            <TextView
-                android:id="@+id/text_view_dates"
-                style="@style/TextAppearance.AppCompat.Medium"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:drawableStart="@drawable/ic_date_range"
-                android:drawablePadding="@dimen/half_margin"
-                app:layout_constraintBottom_toTopOf="@id/text_view_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_group_type"
-                tools:text="10:30:00 2013-10-18\n11:30:00 2013-10-18" />
+                android:layout_margin="@dimen/margin">
 
-            <TextView
-                android:id="@+id/text_view_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:ellipsize="end"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_dates"
-                tools:text="Ga met het hele gezin op ontdekkingsreis langs de hoogtepunten uit de Nederlandse kunst en geschiedenis, en maak kennis met de uitvindingen van onze voorvaders. De rondleiding start bij de Informatiebalie in het Atrium van het museum. U kunt zich voor aanvang van de rondleiding daar melden." />
+                <TextView
+                    android:id="@+id/text_view_price"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_euro"
+                    android:drawablePadding="@dimen/half_margin"
+                    android:text="@{event.getPrice()}"
+                    app:layout_constraintBottom_toBottomOf="@id/lower_guide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="5.50" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/text_view_seats"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_seats"
+                    android:drawablePadding="@dimen/half_margin"
+                    android:text="@{event.getAvailableSeats()}"
+                    app:layout_constraintBottom_toBottomOf="@id/lower_guide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toEndOf="@id/text_view_price"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="10" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lower_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.2" />
+
+                <TextView
+                    android:id="@+id/text_view_group_type"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:drawableStart="@drawable/ic_group"
+                    android:drawablePadding="@dimen/half_margin"
+                    android:text="@{event.groupType}"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_dates"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/lower_guide"
+                    tools:text="Families en Kinderen" />
+
+                <TextView
+                    android:id="@+id/text_view_dates"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:drawableStart="@drawable/ic_date_range"
+                    android:drawablePadding="@dimen/half_margin"
+                    app:bind_dates="@{event}"
+                    app:layout_constraintBottom_toTopOf="@id/text_view_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_group_type"
+                    tools:text="10:30:00 2013-10-18\n11:30:00 2013-10-18" />
+
+                <TextView
+                    android:id="@+id/text_view_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:ellipsize="end"
+                    android:text="@{event.description}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_dates"
+                    tools:text="Ga met het hele gezin op ontdekkingsreis langs de hoogtepunten uit de Nederlandse kunst en geschiedenis, en maak kennis met de uitvindingen van onze voorvaders. De rondleiding start bij de Informatiebalie in het Atrium van het museum. U kunt zich voor aanvang van de rondleiding daar melden." />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>
