@@ -1,6 +1,5 @@
 package com.rijksmuseum.sample.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.rijksmuseum.sample.R
 import com.rijksmuseum.sample.databinding.FragmentEventListBinding
-import com.rijksmuseum.sample.ui.ProgressBarListener
 import com.rijksmuseum.sample.ui.adapters.BaseAdapter
 import com.rijksmuseum.sample.ui.delegates.EmptyStateDelegateAdapter
 import com.rijksmuseum.sample.ui.delegates.EventDelegateAdapter
+import com.rijksmuseum.sample.ui.show
 import com.rijksmuseum.sample.ui.models.EmptyStateItem
 import com.rijksmuseum.sample.ui.models.Event
 import com.rijksmuseum.sample.ui.viewmodels.EventListViewModel
@@ -37,7 +36,6 @@ class EventListFragment : Fragment() {
         addDelegate(EventDelegateAdapter(), Event.VIEW_TYPE)
         addDelegate(EmptyStateDelegateAdapter(), EmptyStateItem.VIEW_TYPE)
     }
-    private lateinit var progressBarListener: ProgressBarListener
 
     private lateinit var recyclerView: RecyclerView
 
@@ -52,14 +50,6 @@ class EventListFragment : Fragment() {
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context,
                 layoutManager.orientation))
         return binding.root
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context !is ProgressBarListener) {
-            throw ClassCastException("Activity does not implement ProgressBarListener")
-        }
-        progressBarListener = context
     }
 
     override fun onResume() {
@@ -84,7 +74,7 @@ class EventListFragment : Fragment() {
 
         })
         viewModel.loader.observe(this, Observer {
-            progressBarListener.displayProgressBar(it)
+            binding.progressBar.show(it)
         })
         getNextWeekEvents()
 
