@@ -53,4 +53,8 @@ class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         delegateAdapters.put(viewType, delegateAdapter)
     }
 
+    fun addDelegateUIModels(list : List<DelegateUIModel>) {
+        delegateUIModels.submitList(list)
+    }
+
 }

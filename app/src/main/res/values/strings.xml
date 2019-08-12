@@ -2,4 +2,7 @@
     <string name="app_name">Rijksmuseum</string>
     <string name="title_events">Events</string>
     <string name="title_image_search">Collections</string>
+    <string name="txt_event_date_range">%1$s\n%2$s</string>
+    <string name="txt_empty_state_event_list">We are sorry but there are no events scheduled for the next week</string>
+    <string name="txt_empty_state_collection_item_list">There are no items that match your search</string>
 </resources>
