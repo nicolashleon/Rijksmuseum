@@ -5,15 +5,22 @@ import com.rijksmuseum.sample.network.interceptors.APIAuthInterceptor
 import com.rijksmuseum.sample.network.interceptors.FormatQueryInterceptor
 import com.rijksmuseum.sample.network.services.CollectionService
 import com.rijksmuseum.sample.network.services.EventService
+import com.rijksmuseum.sample.repositories.CollectionRepository
+import com.rijksmuseum.sample.repositories.EventRepository
+import com.rijksmuseum.sample.ui.viewmodels.CollectionViewModel
+import com.rijksmuseum.sample.ui.viewmodels.EventListViewModel
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.*
 
 
 class RijksmuseumApplication : Application() {
@@ -30,7 +37,9 @@ class RijksmuseumApplication : Application() {
             builder.build()
         }
         single {
-            Moshi.Builder().build()
+            Moshi.Builder()
+                .add(Date::class.java, Rfc3339DateJsonAdapter())
+                .build()
         }
         single {
             Retrofit.Builder()
@@ -48,6 +57,19 @@ class RijksmuseumApplication : Application() {
             val retrofit: Retrofit = get()
             retrofit.create(CollectionService::class.java)
         }
+
+        single {
+            EventRepository(get())
+        }
+
+
+        single {
+            CollectionRepository(get())
+        }
+
+        viewModel { EventListViewModel(get()) }
+
+        viewModel { CollectionViewModel(get()) }
     }
 
     override fun onCreate() {

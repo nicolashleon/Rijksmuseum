@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.rijksmuseum.sample.BR
 import com.rijksmuseum.sample.R
-import com.rijksmuseum.sample.ui.models.Collection
+import com.rijksmuseum.sample.ui.models.CollectionItem
 import com.rijksmuseum.sample.ui.models.DelegateUIModel
 import com.squareup.picasso.Picasso
 
@@ -33,19 +33,19 @@ class CollectionDelegateAdapter : DelegateAdapter {
         val layoutInflater = LayoutInflater.from(parent.context)
         val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(layoutInflater,
                 R.layout.item_collection, parent, false)
-        return CollectionViewHolder(viewDataBinding)
+        return CollectionItemViewHolder(viewDataBinding)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, delegateUIModel: DelegateUIModel) {
-        if (viewHolder is CollectionViewHolder && delegateUIModel is Collection) {
-            viewHolder.binding.setVariable(BR.event, delegateUIModel)
+        if (viewHolder is CollectionItemViewHolder && delegateUIModel is CollectionItem) {
+            viewHolder.binding.setVariable(BR.collection, delegateUIModel)
             viewHolder.binding.executePendingBindings()
         }
     }
 
     override fun areContentsTheSame(oldItem: DelegateUIModel, newItem: DelegateUIModel): Boolean {
-        return oldItem is Collection && newItem is Collection && oldItem == newItem
+        return oldItem is CollectionItem && newItem is CollectionItem && oldItem == newItem
     }
 
-    inner class CollectionViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class CollectionItemViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 }

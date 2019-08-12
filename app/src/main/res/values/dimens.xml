@@ -1,5 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="match_constraint">0dp</dimen>
     <dimen name="margin">16dp</dimen>
     <dimen name="half_margin">8dp</dimen>
+    <dimen name="image_height_collection_item">250dp</dimen>
 </resources>
