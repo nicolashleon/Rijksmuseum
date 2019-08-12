@@ -28,10 +28,9 @@ class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     }
+    
     private var delegateAdapters = SparseArray<DelegateAdapter>()
     private val delegateUIModels = AsyncListDiffer(this, diffCallback)
-
-    val isEmpty: Boolean = delegateUIModels.currentList.isEmpty()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val delegateAdapter = delegateAdapters.get(viewType)
