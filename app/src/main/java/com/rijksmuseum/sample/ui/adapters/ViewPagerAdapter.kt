@@ -9,15 +9,11 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager) :
 
     private val data = ArrayList<Pair<Fragment, String>>()
 
-    companion object {
-        private const val VIEW_PAGER_SIZE = 2
-    }
-
     override fun getItem(position: Int): Fragment {
         return data[position].first
     }
 
-    override fun getCount() = VIEW_PAGER_SIZE
+    override fun getCount() = data.size
 
     override fun getPageTitle(position: Int): CharSequence? {
         return data[position].second
