@@ -4,4 +4,6 @@
     <dimen name="margin">16dp</dimen>
     <dimen name="half_margin">8dp</dimen>
     <dimen name="image_height_collection_item">250dp</dimen>
+    <dimen name="guide_begin_height_event">32dp</dimen>
+    <dimen name="guide_end_height_event">48dp</dimen>
 </resources>

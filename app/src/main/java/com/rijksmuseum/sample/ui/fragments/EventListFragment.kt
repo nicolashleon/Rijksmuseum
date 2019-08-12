@@ -15,7 +15,9 @@ import com.rijksmuseum.sample.R
 import com.rijksmuseum.sample.databinding.FragmentEventListBinding
 import com.rijksmuseum.sample.ui.ProgressBarListener
 import com.rijksmuseum.sample.ui.adapters.BaseAdapter
+import com.rijksmuseum.sample.ui.delegates.EmptyStateDelegateAdapter
 import com.rijksmuseum.sample.ui.delegates.EventDelegateAdapter
+import com.rijksmuseum.sample.ui.models.EmptyStateItem
 import com.rijksmuseum.sample.ui.models.Event
 import com.rijksmuseum.sample.ui.viewmodels.EventListViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -32,6 +34,7 @@ class EventListFragment : Fragment() {
     private val viewModel: EventListViewModel by viewModel()
     private val baseAdapter = BaseAdapter().apply {
         addDelegate(EventDelegateAdapter(), Event.VIEW_TYPE)
+        addDelegate(EmptyStateDelegateAdapter(), EmptyStateItem.VIEW_TYPE)
     }
     private lateinit var progressBarListener: ProgressBarListener
 
@@ -66,7 +69,7 @@ class EventListFragment : Fragment() {
         viewModel.loader.observe(this, Observer {
             progressBarListener.displayProgressBar(it)
         })
-        viewModel.getEvents(Calendar.getInstance().time)
+        viewModel.getNextWeekEvents(Calendar.getInstance().time)
     }
 
 }

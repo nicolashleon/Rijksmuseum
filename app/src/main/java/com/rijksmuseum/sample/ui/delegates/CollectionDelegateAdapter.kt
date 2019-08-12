@@ -16,12 +16,18 @@ import com.squareup.picasso.Picasso
 class CollectionDelegateAdapter : DelegateAdapter {
 
     companion object {
+
+        private const val TARGET_WIDTH_PX = 2048
+        private const val TARGET_HEIGHT_PX = 1600
+
         @BindingAdapter("bind_imageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageUrl: String?) {
             if (!imageUrl.isNullOrEmpty()) {
                 Picasso.get()
                         .load(imageUrl)
+                        .resize(TARGET_WIDTH_PX, TARGET_HEIGHT_PX)
+                        .onlyScaleDown()
                         .placeholder(R.drawable.ic_photo)
                         .error(R.drawable.ic_photo)
                         .into(view)

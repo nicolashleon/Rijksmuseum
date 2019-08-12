@@ -33,7 +33,10 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin">
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/half_margin">
 
                 <TextView
                     android:id="@+id/text_view_price"
@@ -70,7 +73,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.2" />
+                    app:layout_constraintGuide_begin="@dimen/guide_begin_height_event"
+                    app:layout_constraintGuide_end="@dimen/guide_end_height_event" />
 
                 <TextView
                     android:id="@+id/text_view_group_type"

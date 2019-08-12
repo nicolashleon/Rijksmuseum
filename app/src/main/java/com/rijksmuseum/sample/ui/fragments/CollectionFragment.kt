@@ -16,7 +16,9 @@ import com.rijksmuseum.sample.databinding.FragmentItemCollectionListBinding
 import com.rijksmuseum.sample.ui.ProgressBarListener
 import com.rijksmuseum.sample.ui.adapters.BaseAdapter
 import com.rijksmuseum.sample.ui.delegates.CollectionDelegateAdapter
+import com.rijksmuseum.sample.ui.delegates.EmptyStateDelegateAdapter
 import com.rijksmuseum.sample.ui.models.CollectionItem
+import com.rijksmuseum.sample.ui.models.EmptyStateItem
 import com.rijksmuseum.sample.ui.viewmodels.CollectionViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -31,6 +33,7 @@ class CollectionFragment : Fragment() {
     private lateinit var binding: FragmentItemCollectionListBinding
     private val baseAdapter = BaseAdapter().apply {
         addDelegate(CollectionDelegateAdapter(), CollectionItem.VIEW_TYPE)
+        addDelegate(EmptyStateDelegateAdapter(), EmptyStateItem.VIEW_TYPE)
     }
     private lateinit var progressBarListener: ProgressBarListener
 
