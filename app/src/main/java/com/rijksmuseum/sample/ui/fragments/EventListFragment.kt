@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.rijksmuseum.sample.R
 import com.rijksmuseum.sample.databinding.FragmentEventListBinding
 import com.rijksmuseum.sample.ui.ProgressBarListener
@@ -63,12 +64,33 @@ class EventListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.events.observe(this, Observer {
-            baseAdapter.addDelegateUIModels(it)
+        viewModel.events.observe(this, Observer { result ->
+            result.value?.let {
+                val list = if (it.isEmpty()) {
+                    listOf(EmptyStateItem(R.string.txt_empty_state_event_list))
+                } else {
+                    it
+                }
+                baseAdapter.addDelegateUIModels(list)
+            }
+            result.error?.let {
+                baseAdapter.addDelegateUIModels(emptyList())
+                Snackbar.make(binding.root, R.string.txt_error_event_list, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.txt_retry) {
+                            getNextWeekEvents()
+                        }
+                        .show()
+            }
+
         })
         viewModel.loader.observe(this, Observer {
             progressBarListener.displayProgressBar(it)
         })
+        getNextWeekEvents()
+
+    }
+
+    private fun getNextWeekEvents() {
         viewModel.getNextWeekEvents(Calendar.getInstance().time)
     }
 
