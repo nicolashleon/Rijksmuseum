@@ -5,4 +5,7 @@
     <string name="txt_event_date_range">%1$s\n%2$s</string>
     <string name="txt_empty_state_event_list">We are sorry but there are no events scheduled for the next week</string>
     <string name="txt_empty_state_collection_item_list">There are no items that match your search</string>
+    <string name="txt_error_collection_item_list">There is an error getting the collection</string>
+    <string name="txt_error_event_list">There is an error getting the events</string>
+    <string name="txt_retry">retry</string>
 </resources>
