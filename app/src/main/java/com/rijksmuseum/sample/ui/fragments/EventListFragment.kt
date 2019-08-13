@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.rijksmuseum.sample.R
 import com.rijksmuseum.sample.databinding.FragmentEventListBinding
+import com.rijksmuseum.sample.ui.Result
 import com.rijksmuseum.sample.ui.adapters.BaseAdapter
 import com.rijksmuseum.sample.ui.delegates.EmptyStateDelegateAdapter
 import com.rijksmuseum.sample.ui.delegates.EventDelegateAdapter
@@ -55,29 +56,25 @@ class EventListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.events.observe(this, Observer { result ->
-            result.value?.let {
-                val list = if (it.isEmpty()) {
-                    listOf(EmptyStateItem(R.string.txt_empty_state_event_list))
-                } else {
-                    it
+            when (result) {
+                is Result.Success -> result.data?.let {
+                    binding.progressBar.show(false)
+                    baseAdapter.addDelegateUIModels(it)
                 }
-                baseAdapter.addDelegateUIModels(list)
-            }
-            result.error?.let {
-                baseAdapter.addDelegateUIModels(emptyList())
-                Snackbar.make(binding.root, R.string.txt_error_event_list, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.txt_retry) {
-                            getNextWeekEvents()
-                        }
-                        .show()
+                is Result.Error -> {
+                    baseAdapter.addDelegateUIModels(emptyList())
+                    binding.progressBar.show(false)
+                    Snackbar.make(binding.root, R.string.txt_error_event_list, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.txt_retry) {
+                                getNextWeekEvents()
+                            }
+                            .show()
+                }
+                is Result.Loading -> binding.progressBar.show(true)
             }
 
-        })
-        viewModel.loader.observe(this, Observer {
-            binding.progressBar.show(it)
         })
         getNextWeekEvents()
-
     }
 
     private fun getNextWeekEvents() {

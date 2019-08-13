@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.viewPager.adapter = ViewPagerAdapter(supportFragmentManager).apply {
-            addData(EventListFragment(), getString(R.string.title_events))
-            addData(CollectionFragment(), getString(R.string.title_image_search))
+            addData(EventListFragment.newInstance(), getString(R.string.title_events))
+            addData(CollectionFragment.newInstance(), getString(R.string.title_image_search))
         }
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }

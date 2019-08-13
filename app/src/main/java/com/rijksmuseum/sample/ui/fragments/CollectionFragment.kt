@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.rijksmuseum.sample.R
 import com.rijksmuseum.sample.databinding.FragmentItemCollectionListBinding
+import com.rijksmuseum.sample.ui.Result
 import com.rijksmuseum.sample.ui.adapters.BaseAdapter
 import com.rijksmuseum.sample.ui.delegates.CollectionDelegateAdapter
 import com.rijksmuseum.sample.ui.delegates.EmptyStateDelegateAdapter
-import com.rijksmuseum.sample.ui.show
 import com.rijksmuseum.sample.ui.models.CollectionItem
 import com.rijksmuseum.sample.ui.models.EmptyStateItem
+import com.rijksmuseum.sample.ui.show
 import com.rijksmuseum.sample.ui.viewmodels.CollectionViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -55,26 +56,26 @@ class CollectionFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.collectionItems.observe(this, Observer { result ->
-            result.value?.let {
-                val list = if (it.isEmpty()) {
-                    listOf(EmptyStateItem(R.string.txt_empty_state_collection_item_list))
-                } else {
-                    it
+            when (result) {
+                is Result.Success -> result.data?.let {
+                    binding.progressBar.show(false)
+                    baseAdapter.addDelegateUIModels(it)
                 }
-                baseAdapter.addDelegateUIModels(list)
+                is Result.Error -> {
+                    baseAdapter.addDelegateUIModels(emptyList())
+                    binding.progressBar.show(false)
+                    Snackbar.make(binding.root, R.string.txt_error_collection_item_list,
+                            Snackbar.LENGTH_LONG)
+                            .setAction(R.string.txt_retry) {
+                                getCollection()
+                            }
+                            .show()
+                }
+                is Result.Loading -> binding.progressBar.show(true)
             }
-            result.error?.let {
-                baseAdapter.addDelegateUIModels(emptyList())
-                Snackbar.make(binding.root, R.string.txt_error_collection_item_list, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.txt_retry) {
-                            getCollection()
-                        }
-                        .show()
-            }
+
         })
-        viewModel.loader.observe(this, Observer {
-            binding.progressBar.show(it)
-        })
+
         getCollection()
 
     }
